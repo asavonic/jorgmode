@@ -7,6 +7,9 @@
   <version>0.1-SNAPSHOT</version>
   <name>jorgmode</name>
   <url>https://github.com/asavonic/jorgmode</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 
   <dependencies>
     <dependency>
