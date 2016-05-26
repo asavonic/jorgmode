@@ -15,6 +15,9 @@ class SimpleBuilder extends OrgBuilder {
     @Override
     public Document parse(InputStream is) {
         // TODO: unimplemented
+        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+        String text = s.hasNext() ? s.next() : "";
+
         return null;
     }
 
