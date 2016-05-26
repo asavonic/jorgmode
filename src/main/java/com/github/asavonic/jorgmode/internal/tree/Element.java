@@ -3,7 +3,6 @@ package com.github.asavonic.jorgmode.internal.tree;
 import com.github.asavonic.jorgmode.tree.*;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.ListIterator;
 
 public class Element implements Node {
     private List<Node> childNodes = new ArrayList<>();
@@ -23,18 +22,16 @@ public class Element implements Node {
 
     @Override
     public Node getFirstChild() {
-        ListIterator<Node> it = childNodes.listIterator();
-        if (it.hasNext()) {
-            return it.next();
+        if (childNodes.size() > 0) {
+            return childNodes.get(0);
         }
         return null;
     }
 
     @Override
     public Node getLastChild() {
-        ListIterator<Node> it = childNodes.listIterator();
-        if (it.hasPrevious()) {
-            return it.previous();
+        if (childNodes.size() > 0) {
+            return childNodes.get(childNodes.size() - 1);
         }
         return null;
     }

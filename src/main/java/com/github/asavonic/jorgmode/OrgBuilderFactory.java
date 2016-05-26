@@ -1,11 +1,14 @@
 package com.github.asavonic.jorgmode;
 
+import com.github.asavonic.jorgmode.internal.SimpleBuilderFactory;
+
 public abstract class OrgBuilderFactory {
     /**
      * Obtain new instance of an OrgBuilderFactory
      */
     public static OrgBuilderFactory newInstance() {
-        return null;
+        // TODO: DI for builder type
+        return new SimpleBuilderFactory();
     }
 
     /**

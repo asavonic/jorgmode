@@ -25,4 +25,8 @@ public class TextImpl extends Element implements Text {
             ((content.length() < DUMP_CHARS_LIMIT) ? content
              : content.substring(0, DUMP_CHARS_LIMIT));
     }
+
+    public String getWholeText() {
+        return content;
+    }
 }
