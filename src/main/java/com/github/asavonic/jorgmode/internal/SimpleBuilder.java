@@ -9,8 +9,7 @@ import java.io.File;
 public class SimpleBuilder extends OrgBuilder {
     @Override
     public Document newDocument() {
-        // TODO: unimplemented
-        return null;
+        return new DocumentImpl();
     }
 
     @Override

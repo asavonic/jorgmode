@@ -1,13 +1,25 @@
 package com.github.asavonic.jorgmode.internal.tree;
 
 import com.github.asavonic.jorgmode.tree.*;
-import java.util.List;
-import java.util.ArrayList;
+import com.github.asavonic.jorgmode.OrgException;
+import com.github.asavonic.jorgmode.internal.util.IntrusiveList;
 
 public class Element implements Node {
-    private List<Node> childNodes = new ArrayList<>();
+    private IntrusiveList<Node> childNodes;
+    private IntrusiveList<Node> lastChild;
+
+    private IntrusiveList<Node> self;
+    private IntrusiveList<Node> parent;
 
     public Element() {
+    }
+
+    public void setListItem(IntrusiveList<Node> self) {
+        this.self = self;
+    }
+
+    public void setParentListItem(IntrusiveList<Node> parent) {
+        this.parent = parent;
     }
 
     @Override
@@ -22,39 +34,58 @@ public class Element implements Node {
 
     @Override
     public Node getFirstChild() {
-        if (childNodes.size() > 0) {
-            return childNodes.get(0);
+        if (childNodes != null) {
+            return childNodes.getElem();
         }
         return null;
     }
 
     @Override
     public Node getLastChild() {
-        if (childNodes.size() > 0) {
-            return childNodes.get(childNodes.size() - 1);
+        if (lastChild != null) {
+            return lastChild.getElem();
         }
         return null;
     }
 
-    /**
-     * @returns The node immediately following this node
-     */
+    @Override
     public Node getNextSibling() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        IntrusiveList<Node> next = self.getNext();
+        if (next != null) {
+            return next.getElem();
+        }
+        return null;
     }
 
-    /**
-     * @returns The node immediately preceding this node
-     */
+    @Override
     public Node getPreviousSibling() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        IntrusiveList<Node> prev = self.getPrev();
+        if (prev != null) {
+            return prev.getElem();
+        }
+        return null;
     }
 
-    /**
-     * Adds the node newChild to the end of the list of children of this node
-     */
-    public Node appendNode(Node newChild) {
-        childNodes.add(newChild);
-        return newChild;
+    @Override
+    public Node appendNode(Node child) {
+        if (!(child instanceof Element)) {
+            throw new OrgException(OrgException.HIERARCHY_REQUEST_ERR,
+                                   "child must be an instance of Element class");
+        }
+        Element childElem = (Element) child;
+
+        IntrusiveList<Node> newChild = new IntrusiveList<>(child);
+        childElem.setListItem(newChild);
+        childElem.setParentListItem(self);
+
+        if (childNodes == null) {
+            childNodes = newChild;
+            lastChild = newChild;
+            return child;
+        }
+
+        newChild.insertAfter(lastChild);
+        lastChild = newChild;
+        return child;
     }
 }
