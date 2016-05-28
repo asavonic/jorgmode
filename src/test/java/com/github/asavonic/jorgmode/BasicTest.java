@@ -42,10 +42,10 @@ public class BasicTest extends TestCase {
         Node root = doc.getRoot();
         // check document has exactly one element: the text
         assertEquals(root.getFirstChild(), root.getLastChild());
-        assertEquals(root.getFirstChild().getNodeType(), Node.TEXT_NODE);
+        assertEquals(Node.TEXT_NODE, root.getFirstChild().getNodeType());
 
         Text textNode = (Text) root.getFirstChild();
-        assertEquals(textNode.getWholeText(), text);
+        assertEquals(text, textNode.getWholeText());
     }
 
     private Document docFromString(String str) {

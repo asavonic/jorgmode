@@ -54,12 +54,13 @@ public class TreeTest extends TestCase {
         Node CA = C.getFirstChild();
         Node CB = CA.getNextSibling();
 
-        assertEquals(((Text) A).getWholeText(), "A");
-        assertEquals(((Text) B).getWholeText(), "B");
-        assertEquals(((Text) C).getWholeText(), "C");
-        assertEquals(((Text) D).getWholeText(), "D");
-        assertEquals(((Text) CA).getWholeText(), "CA");
-        assertEquals(((Text) CB).getWholeText(), "CB");
+        assertEquals("A", ((Text) A).getWholeText());
+        assertEquals("B", ((Text) B).getWholeText());
+        assertEquals("C", ((Text) C).getWholeText());
+        assertEquals("D", ((Text) D).getWholeText());
+
+        assertEquals("CA", ((Text) CA).getWholeText());
+        assertEquals("CB", ((Text) CB).getWholeText());
     }
 
     private Document docFromString(String str) {
