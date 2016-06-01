@@ -2,11 +2,16 @@ package com.github.asavonic.jorgmode.internal.tree;
 
 import com.github.asavonic.jorgmode.tree.*;
 import com.github.asavonic.jorgmode.internal.tree.*;
+import com.github.asavonic.jorgmode.internal.util.IntrusiveList;
 
 public class DocumentImpl implements Document {
-    private Node root = new Element();
+    private Element root;
+    private IntrusiveList<Node> rootListIterm;
 
     public DocumentImpl() {
+        root = new Element();
+        rootListIterm = new IntrusiveList<Node>(root);
+        root.setListItem(rootListIterm);
     }
 
     @Override
