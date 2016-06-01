@@ -13,4 +13,10 @@ public interface Document {
      * Creates new text node, representing the specified string
      */
     public Text createText(String data);
+
+    /**
+     * Creates new heading node, representing the one-line header (and child
+     * nodes representing the body)
+     */
+    public Heading createHeading(String header, short level);
 }

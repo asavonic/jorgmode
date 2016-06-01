@@ -24,4 +24,9 @@ public class DocumentImpl implements Document {
         return new TextImpl(data);
     }
 
+    @Override
+    public Heading createHeading(String header, short level) {
+        return new HeadingImpl(header, level);
+    }
+
 }
