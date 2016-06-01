@@ -35,17 +35,83 @@ public class BasicTest extends TestCase {
      * Test Text element
      */
     public void testTextElement() {
-        String text = "This is just a text\n" +
-                      "No formatting at all.";
+        // String text = "This is just a text\n" +
+        //               "No formatting at all.\n" +
+        //               "Really, this should work.\n";
+        // Document doc = docFromString(text);
+
+        // Node root = doc.getRoot();
+
+        // assertNotNull(root.getFirstChild());
+
+        // StringBuilder str = new StringBuilder();
+        // Node first = root.getFirstChild();
+        // for (Node iter = first; iter != null; iter = iter.getNextSibling()) {
+        //     assertEquals(Node.TEXT_NODE, iter.getNodeType());
+        //     str.append(((Text)iter).getWholeText());
+        //     str.append("\n");
+        // }
+
+        // String gotText = str.toString();
+        // assertEquals(text, gotText);
+    }
+
+    /**
+     * Test Heading element
+     */
+    public void testHeadingElement() {
+        String text = "* Foo\n" +
+                      "** Bar\n" +
+                      "* Baz\n";
+
         Document doc = docFromString(text);
-
         Node root = doc.getRoot();
-        // check document has exactly one element: the text
-        assertEquals(root.getFirstChild(), root.getLastChild());
-        assertEquals(Node.TEXT_NODE, root.getFirstChild().getNodeType());
 
-        Text textNode = (Text) root.getFirstChild();
-        assertEquals(text, textNode.getWholeText());
+        assertNotNull(root.getFirstChild());
+
+        Node foo = root.getFirstChild();
+        Node bar = foo.getFirstChild();
+        Node baz = foo.getNextSibling();
+
+        // assertNull(baz.getNextSibling());
+
+        assertEquals("Foo", ((Heading)foo).getHeader());
+        assertEquals("Bar", ((Heading)bar).getHeader());
+        assertEquals("Baz", ((Heading)baz).getHeader());
+
+        assertEquals(1, ((Heading)foo).getLevel());
+        assertEquals(2, ((Heading)bar).getLevel());
+        assertEquals(1, ((Heading)baz).getLevel());
+    }
+
+    /**
+     * Test Heading element with Text inside
+     */
+    public void testHeadingWithText() {
+        String text = "* Foo\n" +
+                      "foo text\n" +
+                      "** Bar\n" +
+                      "bar text\n";
+
+        Document doc = docFromString(text);
+        Node root = doc.getRoot();
+
+        assertNotNull(root.getFirstChild());
+
+        Node foo = root.getFirstChild();
+        Node fooText = foo.getFirstChild();
+
+        Node bar = fooText.getNextSibling();
+        Node barText = bar.getFirstChild();
+
+        assertEquals("Foo", ((Heading)foo).getHeader());
+        assertEquals("foo text", ((Text)fooText).getWholeText());
+
+        assertEquals("Bar", ((Heading)bar).getHeader());
+        assertEquals("bar text", ((Text)barText).getWholeText());
+
+        assertEquals(1, ((Heading)foo).getLevel());
+        assertEquals(2, ((Heading)bar).getLevel());
     }
 
     private Document docFromString(String str) {
