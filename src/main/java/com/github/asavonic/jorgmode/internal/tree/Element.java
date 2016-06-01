@@ -33,6 +33,11 @@ public class Element implements Node {
     }
 
     @Override
+    public Node getParentNode() {
+        return parent.getElem();
+    }
+
+    @Override
     public Node getFirstChild() {
         if (childNodes != null) {
             return childNodes.getElem();

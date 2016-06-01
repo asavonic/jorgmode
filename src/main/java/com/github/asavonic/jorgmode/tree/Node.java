@@ -16,6 +16,11 @@ public interface Node {
     public String dump();
 
     /**
+     * @returns The parent of this node
+     */
+    public Node getParentNode();
+
+    /**
      * @returns The first child of this node
      */
     public Node getFirstChild();

@@ -26,6 +26,7 @@ public class TextImpl extends Element implements Text {
              : content.substring(0, DUMP_CHARS_LIMIT));
     }
 
+    @Override
     public String getWholeText() {
         return content;
     }
